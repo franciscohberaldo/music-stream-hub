@@ -25,6 +25,7 @@ const App = () => (
           <Route path="/mapa" element={<Mapa />} />
           <Route path="/bandas/:id" element={<BandProfile />} />
           <Route path="/espacos" element={<Espacos />} />
+          <Route path="/publicar" element={<PublicarEvento />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
