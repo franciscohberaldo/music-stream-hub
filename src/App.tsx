@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import BottomTabBar from "@/components/BottomTabBar";
 import Index from "./pages/Index.tsx";
 import Shows from "./pages/Shows.tsx";
 import Mapa from "./pages/Mapa.tsx";
@@ -29,6 +30,7 @@ const App = () => (
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <BottomTabBar />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
