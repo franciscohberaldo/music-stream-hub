@@ -3,7 +3,6 @@ import Navbar from "@/components/Navbar";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -33,194 +32,203 @@ const PublicarEvento = () => {
     );
   };
 
+  const inputClass = "rounded-lg border border-border bg-secondary px-4 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus:border-primary/50 text-foreground w-full";
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <main className="max-w-2xl mx-auto px-4 py-10">
-        <h1 className="text-2xl font-bold text-foreground font-[var(--font-heading)]">Publicar evento</h1>
-        <p className="text-muted-foreground text-sm mt-1 mb-8">Adicione um show ao guia cultural do Giggo</p>
 
-        {/* INFORMAÇÕES BÁSICAS */}
-        <section className="mb-8">
-          <h2 className="text-xs font-semibold text-muted-foreground tracking-widest uppercase mb-4">Informações Básicas</h2>
-
-          <div className="space-y-4">
-            <div>
-              <Label className="text-foreground">Nome do evento <span className="text-primary">*</span></Label>
-              <Input placeholder="Ex: Noite de Jazz no Bar do João" className="mt-1.5 bg-secondary border-border text-foreground placeholder:text-muted-foreground" />
-            </div>
-
-            <div>
-              <Label className="text-foreground">Tipo de evento <span className="text-primary">*</span></Label>
-              <div className="flex flex-wrap gap-2 mt-1.5">
-                {tiposEvento.map((tipo) => (
-                  <button
-                    key={tipo}
-                    onClick={() => setTipoEvento(tipo)}
-                    className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
-                      tipoEvento === tipo
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-secondary text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    {tipo}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <Label className="text-foreground">Descrição</Label>
-              <Textarea placeholder="Conte mais sobre o evento..." className="mt-1.5 bg-secondary border-border text-foreground placeholder:text-muted-foreground min-h-[80px]" />
-            </div>
+      <div className="pt-24 px-6 md:px-12 lg:px-24 pb-16">
+        <div className="max-w-2xl">
+          <div className="mb-10">
+            <h1 className="font-heading text-3xl font-bold mb-1">Publicar evento</h1>
+            <p className="text-muted-foreground text-sm">Adicione um show ao guia cultural do Giggo</p>
           </div>
-        </section>
 
-        {/* DATA E HORÁRIO */}
-        <section className="mb-8">
-          <h2 className="text-xs font-semibold text-muted-foreground tracking-widest uppercase mb-4">Data e Horário</h2>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <Label className="text-foreground">Data <span className="text-primary">*</span></Label>
-              <Input type="date" className="mt-1.5 bg-secondary border-border text-foreground" />
-            </div>
-            <div>
-              <Label className="text-foreground">Início <span className="text-primary">*</span></Label>
-              <Input type="time" className="mt-1.5 bg-secondary border-border text-foreground" />
-            </div>
-            <div>
-              <Label className="text-foreground">Término</Label>
-              <Input type="time" className="mt-1.5 bg-secondary border-border text-foreground" />
-            </div>
-            <div>
-              <Label className="text-foreground">Capacidade</Label>
-              <Input type="number" placeholder="Ex: 200" className="mt-1.5 bg-secondary border-border text-foreground placeholder:text-muted-foreground" />
-            </div>
-          </div>
-        </section>
-
-        {/* LOCAL */}
-        <section className="mb-8">
-          <h2 className="text-xs font-semibold text-muted-foreground tracking-widest uppercase mb-4">Local</h2>
-          <div className="space-y-4">
-            <div>
-              <Label className="text-foreground">Endereço <span className="text-primary">*</span></Label>
-              <Input placeholder="Rua, número, bairro" className="mt-1.5 bg-secondary border-border text-foreground placeholder:text-muted-foreground" />
-            </div>
-            <div className="grid grid-cols-[1fr_auto] gap-4">
+          {/* INFORMAÇÕES BÁSICAS */}
+          <section className="mb-10">
+            <h2 className="text-xs font-semibold text-muted-foreground tracking-widest uppercase mb-5">Informações Básicas</h2>
+            <div className="space-y-5">
               <div>
-                <Label className="text-foreground">Cidade <span className="text-primary">*</span></Label>
-                <Input placeholder="Ex: São Paulo" className="mt-1.5 bg-secondary border-border text-foreground placeholder:text-muted-foreground" />
+                <label className="text-sm font-medium text-foreground mb-1.5 block">Nome do evento <span className="text-primary">*</span></label>
+                <input placeholder="Ex: Noite de Jazz no Bar do João" className={inputClass} />
               </div>
-              <div className="w-28">
-                <Label className="text-foreground">Estado <span className="text-primary">*</span></Label>
-                <Select>
-                  <SelectTrigger className="mt-1.5 bg-secondary border-border text-foreground">
-                    <SelectValue placeholder="UF" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {estados.map((uf) => (
-                      <SelectItem key={uf} value={uf}>{uf}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+
+              <div>
+                <label className="text-sm font-medium text-foreground mb-2 block">Tipo de evento <span className="text-primary">*</span></label>
+                <div className="flex flex-wrap gap-2">
+                  {tiposEvento.map((tipo) => (
+                    <button
+                      key={tipo}
+                      onClick={() => setTipoEvento(tipo)}
+                      className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+                        tipoEvento === tipo
+                          ? "bg-primary text-primary-foreground"
+                          : "border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
+                      }`}
+                    >
+                      {tipo}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="text-sm font-medium text-foreground mb-1.5 block">Descrição</label>
+                <textarea
+                  placeholder="Conte mais sobre o evento..."
+                  className={`${inputClass} min-h-[100px] resize-none`}
+                />
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* ARTISTA */}
-        <section className="mb-8">
-          <h2 className="text-xs font-semibold text-muted-foreground tracking-widest uppercase mb-4">Artista</h2>
-          <div>
-            <Label className="text-foreground">Banda / Artista</Label>
-            <Select>
-              <SelectTrigger className="mt-1.5 bg-secondary border-border text-foreground">
-                <SelectValue placeholder="Selecionar banda (opcional)" />
-              </SelectTrigger>
-              <SelectContent>
-                {bandas.map((b) => (
-                  <SelectItem key={b.id} value={b.id}>{b.nome}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-        </section>
+          {/* DATA E HORÁRIO */}
+          <section className="mb-10">
+            <h2 className="text-xs font-semibold text-muted-foreground tracking-widest uppercase mb-5">Data e Horário</h2>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-sm font-medium text-foreground mb-1.5 block">Data <span className="text-primary">*</span></label>
+                <input type="date" className={inputClass} />
+              </div>
+              <div>
+                <label className="text-sm font-medium text-foreground mb-1.5 block">Início <span className="text-primary">*</span></label>
+                <input type="time" className={inputClass} />
+              </div>
+              <div>
+                <label className="text-sm font-medium text-foreground mb-1.5 block">Término</label>
+                <input type="time" className={inputClass} />
+              </div>
+              <div>
+                <label className="text-sm font-medium text-foreground mb-1.5 block">Capacidade</label>
+                <input type="number" placeholder="Ex: 200" className={inputClass} />
+              </div>
+            </div>
+          </section>
 
-        {/* GÊNEROS MUSICAIS */}
-        <section className="mb-8">
-          <h2 className="text-xs font-semibold text-muted-foreground tracking-widest uppercase mb-4">Gêneros Musicais</h2>
-          <div className="flex flex-wrap gap-2">
-            {generos.map((g) => (
+          {/* LOCAL */}
+          <section className="mb-10">
+            <h2 className="text-xs font-semibold text-muted-foreground tracking-widest uppercase mb-5">Local</h2>
+            <div className="space-y-4">
+              <div>
+                <label className="text-sm font-medium text-foreground mb-1.5 block">Endereço <span className="text-primary">*</span></label>
+                <input placeholder="Rua, número, bairro" className={inputClass} />
+              </div>
+              <div className="grid grid-cols-[1fr_auto] gap-4">
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-1.5 block">Cidade <span className="text-primary">*</span></label>
+                  <input placeholder="Ex: São Paulo" className={inputClass} />
+                </div>
+                <div className="w-28">
+                  <label className="text-sm font-medium text-foreground mb-1.5 block">Estado <span className="text-primary">*</span></label>
+                  <Select>
+                    <SelectTrigger className="rounded-lg border-border bg-secondary text-foreground h-[42px]">
+                      <SelectValue placeholder="UF" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {estados.map((uf) => (
+                        <SelectItem key={uf} value={uf}>{uf}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* ARTISTA */}
+          <section className="mb-10">
+            <h2 className="text-xs font-semibold text-muted-foreground tracking-widest uppercase mb-5">Artista</h2>
+            <div>
+              <label className="text-sm font-medium text-foreground mb-1.5 block">Banda / Artista</label>
+              <Select>
+                <SelectTrigger className="rounded-lg border-border bg-secondary text-foreground h-[42px]">
+                  <SelectValue placeholder="Selecionar banda (opcional)" />
+                </SelectTrigger>
+                <SelectContent>
+                  {bandas.map((b) => (
+                    <SelectItem key={b.id} value={b.id}>{b.nome}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </section>
+
+          {/* GÊNEROS MUSICAIS */}
+          <section className="mb-10">
+            <h2 className="text-xs font-semibold text-muted-foreground tracking-widest uppercase mb-5">Gêneros Musicais</h2>
+            <div className="flex flex-wrap gap-2">
+              {generos.map((g) => (
+                <button
+                  key={g}
+                  onClick={() => toggleGenero(g)}
+                  className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+                    generosSelecionados.includes(g)
+                      ? "bg-primary text-primary-foreground"
+                      : "border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
+                  }`}
+                >
+                  {g}
+                </button>
+              ))}
+            </div>
+          </section>
+
+          {/* INGRESSOS */}
+          <section className="mb-10">
+            <h2 className="text-xs font-semibold text-muted-foreground tracking-widest uppercase mb-5">Ingressos</h2>
+            <div className="flex gap-3">
               <button
-                key={g}
-                onClick={() => toggleGenero(g)}
-                className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
-                  generosSelecionados.includes(g)
+                onClick={() => setTipoIngresso("gratuito")}
+                className={`flex-1 rounded-full py-2.5 text-sm font-semibold transition-colors ${
+                  tipoIngresso === "gratuito"
                     ? "bg-primary text-primary-foreground"
-                    : "bg-secondary text-muted-foreground hover:text-foreground"
+                    : "border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
                 }`}
               >
-                {g}
+                Gratuito
               </button>
-            ))}
-          </div>
-        </section>
-
-        {/* INGRESSOS */}
-        <section className="mb-8">
-          <h2 className="text-xs font-semibold text-muted-foreground tracking-widest uppercase mb-4">Ingressos</h2>
-          <div className="grid grid-cols-2 gap-3">
-            <button
-              onClick={() => setTipoIngresso("gratuito")}
-              className={`py-2.5 rounded-md text-sm font-semibold transition-colors ${
-                tipoIngresso === "gratuito"
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-secondary text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              Gratuito
-            </button>
-            <button
-              onClick={() => setTipoIngresso("pago")}
-              className={`py-2.5 rounded-md text-sm font-semibold transition-colors ${
-                tipoIngresso === "pago"
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-secondary text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              Pago
-            </button>
-          </div>
-
-          {tipoIngresso === "pago" && (
-            <div className="mt-4 grid grid-cols-2 gap-4">
-              <div>
-                <Label className="text-foreground">Preço (R$)</Label>
-                <Input type="number" placeholder="Ex: 50" className="mt-1.5 bg-secondary border-border text-foreground placeholder:text-muted-foreground" />
-              </div>
-              <div>
-                <Label className="text-foreground">Link de compra</Label>
-                <Input placeholder="https://..." className="mt-1.5 bg-secondary border-border text-foreground placeholder:text-muted-foreground" />
-              </div>
+              <button
+                onClick={() => setTipoIngresso("pago")}
+                className={`flex-1 rounded-full py-2.5 text-sm font-semibold transition-colors ${
+                  tipoIngresso === "pago"
+                    ? "bg-primary text-primary-foreground"
+                    : "border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
+                }`}
+              >
+                Pago
+              </button>
             </div>
-          )}
-        </section>
 
-        {/* PATROCINADOR */}
-        <section className="mb-10">
-          <h2 className="text-xs font-semibold text-muted-foreground tracking-widest uppercase mb-4">Patrocinador</h2>
-          <div>
-            <Label className="text-foreground">Nome do patrocinador</Label>
-            <Input placeholder="Ex: Brahma, RedBull, Heineken" className="mt-1.5 bg-secondary border-border text-foreground placeholder:text-muted-foreground" />
-          </div>
-        </section>
+            {tipoIngresso === "pago" && (
+              <div className="mt-4 grid grid-cols-2 gap-4 animate-slide-in">
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-1.5 block">Preço (R$)</label>
+                  <input type="number" placeholder="Ex: 50" className={inputClass} />
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-1.5 block">Link de compra</label>
+                  <input placeholder="https://..." className={inputClass} />
+                </div>
+              </div>
+            )}
+          </section>
 
-        {/* SUBMIT */}
-        <Button className="w-full h-12 text-base font-semibold">
-          Publicar evento
-        </Button>
-      </main>
+          {/* PATROCINADOR */}
+          <section className="mb-12">
+            <h2 className="text-xs font-semibold text-muted-foreground tracking-widest uppercase mb-5">Patrocinador</h2>
+            <div>
+              <label className="text-sm font-medium text-foreground mb-1.5 block">Nome do patrocinador</label>
+              <input placeholder="Ex: Brahma, RedBull, Heineken" className={inputClass} />
+            </div>
+          </section>
+
+          {/* SUBMIT */}
+          <button className="w-full rounded-full bg-primary text-primary-foreground py-3 text-sm font-semibold hover:opacity-90 transition-opacity">
+            Publicar evento
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
