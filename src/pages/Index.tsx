@@ -1,15 +1,18 @@
 import HeroCarousel from "@/components/HeroCarousel";
 import ShowCard from "@/components/ShowCard";
+import ShowListItem from "@/components/ShowListItem";
 import BandCard from "@/components/BandCard";
 import { Search, Music } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const shows = [
-  { date: "31 de mar.", city: "Campinas", title: "Rock Gratuito no Barão — Velvet Horizon", band: "Velvet Horizon", genre: "Rock", genreColor: "hsl(270, 60%, 55%)", price: "Grátis", priceIsFree: true },
-  { date: "1 de abr.", city: "Campinas", title: "Groove Night — Funk Família", band: "Funk Família", genre: "Funk", genreColor: "hsl(33, 100%, 50%)", price: "R$ 60", priceIsFree: false },
-  { date: "2 de abr.", city: "São Paulo", title: "Jazz Happy Hour — Trio Jazz SP", band: "Trio Jazz SP", genre: "Jazz", genreColor: "hsl(210, 80%, 55%)", price: "Grátis", priceIsFree: true },
-  { date: "3 de abr.", city: "Campinas", title: "Velvet Horizon — Noite de Rock Progressivo", band: "Velvet Horizon", genre: "Rock", genreColor: "hsl(270, 60%, 55%)", price: "R$ 35", priceIsFree: false },
-  { date: "5 de abr.", city: "Atibaia", title: "Samba na Praça — Sambão da Rua", band: "Sambão da Rua", genre: "Samba", genreColor: "hsl(45, 100%, 50%)", price: "Grátis", priceIsFree: true },
-  { date: "8 de abr.", city: "São Paulo", title: "Jazz Night — Trio Jazz SP", band: "Trio Jazz SP", genre: "Jazz", genreColor: "hsl(210, 80%, 55%)", price: "R$ 50", priceIsFree: false },
+  { date: "31 de mar.", city: "Campinas", title: "Rock Gratuito no Barão — Velvet Horizon", band: "Velvet Horizon", genre: "Rock", genreColor: "hsl(270, 60%, 55%)", price: "Grátis", priceIsFree: true, month: "MAR.", day: "31", genres: ["Rock"] },
+  { date: "1 de abr.", city: "Campinas", title: "Groove Night — Funk Família", band: "Funk Família", genre: "Funk", genreColor: "hsl(33, 100%, 50%)", price: "R$ 60", priceIsFree: false, month: "ABR.", day: "1", genres: ["Funk", "Pop"] },
+  { date: "2 de abr.", city: "São Paulo", title: "Jazz Happy Hour — Trio Jazz SP", band: "Trio Jazz SP", genre: "Jazz", genreColor: "hsl(210, 80%, 55%)", price: "Grátis", priceIsFree: true, month: "ABR.", day: "2", genres: ["Jazz"] },
+  { date: "3 de abr.", city: "Campinas", title: "Velvet Horizon — Noite de Rock Progressivo", band: "Velvet Horizon", genre: "Rock", genreColor: "hsl(270, 60%, 55%)", price: "R$ 35", priceIsFree: false, month: "ABR.", day: "3", genres: ["Rock", "Blues"] },
+  { date: "5 de abr.", city: "Atibaia", title: "Samba na Praça — Sambão da Rua", band: "Sambão da Rua", genre: "Samba", genreColor: "hsl(45, 100%, 50%)", price: "Grátis", priceIsFree: true, month: "ABR.", day: "5", genres: ["Samba", "Pagode"] },
+  { date: "8 de abr.", city: "São Paulo", title: "Jazz Night — Trio Jazz SP", band: "Trio Jazz SP", genre: "Jazz", genreColor: "hsl(210, 80%, 55%)", price: "R$ 50", priceIsFree: false, month: "ABR.", day: "8", genres: ["Jazz", "Blues"] },
+  { date: "12 de abr.", city: "Atibaia", title: "Festival Nordestina — Forró na Serra", band: "Nordestina Beat", genre: "Forró", genreColor: "hsl(0, 70%, 55%)", price: "R$ 45", priceIsFree: false, month: "ABR.", day: "12", genres: ["Forró", "MPB"] },
 ];
 
 const bands = [
@@ -21,6 +24,51 @@ const bands = [
 ];
 
 const Index = () => {
+  const isMobile = useIsMobile();
+
+  if (isMobile) {
+    return (
+      <div className="min-h-screen bg-background pb-20">
+        {/* Mobile Header */}
+        <div className="sticky top-0 z-40 bg-background px-5 pt-6 pb-4">
+          <h1 className="font-heading text-2xl font-bold">Shows</h1>
+        </div>
+
+        {/* Shows List */}
+        <section className="px-4">
+          <h2 className="font-heading text-xl font-bold mb-4">Próximos Shows</h2>
+          <div className="flex flex-col gap-3">
+            {shows.map((show, i) => (
+              <ShowListItem
+                key={i}
+                month={show.month}
+                day={show.day}
+                title={show.title}
+                band={show.band}
+                city={show.city}
+                genres={show.genres}
+                price={show.price}
+                priceIsFree={show.priceIsFree}
+              />
+            ))}
+          </div>
+        </section>
+
+        {/* Bands Horizontal Scroll */}
+        <section className="px-4 py-8">
+          <h2 className="font-heading text-xl font-bold mb-4">Bandas em Destaque</h2>
+          <div className="flex gap-6 overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
+            {bands.map((band, i) => (
+              <div key={i} className="flex-shrink-0">
+                <BandCard {...band} />
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background">
       {/* Navbar */}
