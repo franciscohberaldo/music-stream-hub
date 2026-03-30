@@ -1,9 +1,7 @@
 import { useState, useMemo } from "react";
 import Navbar from "@/components/Navbar";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
 import { Star, MapPin } from "lucide-react";
+import mapImage from "@/assets/map-dark-brazil.jpg";
 
 const allGenres = ["Todos os gêneros", "Rock", "MPB", "Samba", "Jazz", "Blues", "Forró", "Funk", "Pop"];
 
@@ -20,31 +18,24 @@ interface MapItem {
   available?: boolean;
   initial: string;
   color: string;
-  lat: number;
-  lng: number;
   venue?: string;
   date?: string;
+  // Position as % on the static image
+  top: string;
+  left: string;
 }
 
 const items: MapItem[] = [
-  { kind: "band", name: "MPB Roots", city: "São Paulo, SP", genres: ["MPB", "Jazz"], price: "R$ 1.400", priceNum: 1400, rating: 4.7, available: false, initial: "M", color: "hsl(0, 50%, 55%)", lat: -23.5505, lng: -46.6333 },
-  { kind: "band", name: "Trio Jazz SP", city: "São Paulo, SP", genres: ["Jazz", "Blues"], price: "R$ 2.500", priceNum: 2500, rating: 5.0, available: true, initial: "T", color: "hsl(210, 80%, 55%)", lat: -23.5615, lng: -46.6560 },
-  { kind: "band", name: "Velvet Horizon", city: "São Paulo, SP", genres: ["Rock", "Blues"], price: "R$ 1.800", priceNum: 1800, rating: 5.0, available: true, initial: "V", color: "hsl(270, 60%, 55%)", lat: -23.5435, lng: -46.6290 },
-  { kind: "show", name: "Velvet Horizon — Noite d...", city: "Campinas", genres: ["Rock", "Blues"], price: "R$ 35", priceNum: 35, initial: "3", color: "hsl(270, 60%, 55%)", lat: -22.9071, lng: -47.0628, venue: "Barão do Rock · Campinas", date: "ABR 3" },
-  { kind: "show", name: "Jazz Night — Trio Jazz SP", city: "São Paulo", genres: ["Jazz", "Blues"], price: "R$ 50", priceNum: 50, initial: "8", color: "hsl(210, 80%, 55%)", lat: -23.5580, lng: -46.6620, venue: "Jazz & Cia · São Paulo", date: "ABR 8" },
-  { kind: "show", name: "Groove Night — Funk Fa...", city: "Campinas", genres: ["Funk", "Pop"], price: "R$ 60", priceNum: 60, initial: "1", color: "hsl(33, 100%, 50%)", lat: -22.9100, lng: -47.0550, venue: "Club Groove · Campinas", date: "ABR 1" },
-  { kind: "show", name: "MPB Raiz — Noite de Cae...", city: "São Paulo", genres: ["MPB", "Jazz"], price: "R$ 80", priceNum: 80, initial: "19", color: "hsl(0, 50%, 55%)", lat: -23.5650, lng: -46.6450, venue: "Casa da Música SP · São Paulo", date: "ABR 19" },
-  { kind: "show", name: "Rock Gratuito no Barão ...", city: "Campinas", genres: ["Rock"], price: "Grátis", priceNum: 0, initial: "31", color: "hsl(270, 60%, 55%)", lat: -22.9050, lng: -47.0600, venue: "Barão do Rock · Campinas", date: "MAR 31" },
-  { kind: "show", name: "Jazz Happy Hour — Trio ...", city: "São Paulo", genres: ["Jazz"], price: "Grátis", priceNum: 0, initial: "2", color: "hsl(210, 80%, 55%)", lat: -23.5530, lng: -46.6580, venue: "Jazz & Cia · São Paulo", date: "ABR 2" },
+  { kind: "band", name: "MPB Roots", city: "São Paulo, SP", genres: ["MPB", "Jazz"], price: "R$ 1.400", priceNum: 1400, rating: 4.7, available: false, initial: "M", color: "hsl(0, 50%, 55%)", top: "52%", left: "58%" },
+  { kind: "band", name: "Trio Jazz SP", city: "São Paulo, SP", genres: ["Jazz", "Blues"], price: "R$ 2.500", priceNum: 2500, rating: 5.0, available: true, initial: "T", color: "hsl(210, 80%, 55%)", top: "54%", left: "60%" },
+  { kind: "band", name: "Velvet Horizon", city: "São Paulo, SP", genres: ["Rock", "Blues"], price: "R$ 1.800", priceNum: 1800, rating: 5.0, available: true, initial: "V", color: "hsl(270, 60%, 55%)", top: "50%", left: "56%" },
+  { kind: "show", name: "Velvet Horizon — Noite d...", city: "Campinas", genres: ["Rock", "Blues"], price: "R$ 35", priceNum: 35, initial: "3", color: "hsl(270, 60%, 55%)", top: "46%", left: "50%", venue: "Barão do Rock · Campinas", date: "ABR 3" },
+  { kind: "show", name: "Jazz Night — Trio Jazz SP", city: "São Paulo", genres: ["Jazz", "Blues"], price: "R$ 50", priceNum: 50, initial: "8", color: "hsl(210, 80%, 55%)", top: "53%", left: "62%", venue: "Jazz & Cia · São Paulo", date: "ABR 8" },
+  { kind: "show", name: "Groove Night — Funk Fa...", city: "Campinas", genres: ["Funk", "Pop"], price: "R$ 60", priceNum: 60, initial: "1", color: "hsl(33, 100%, 50%)", top: "44%", left: "48%", venue: "Club Groove · Campinas", date: "ABR 1" },
+  { kind: "show", name: "MPB Raiz — Noite de Cae...", city: "São Paulo", genres: ["MPB", "Jazz"], price: "R$ 80", priceNum: 80, initial: "19", color: "hsl(0, 50%, 55%)", top: "56%", left: "57%", venue: "Casa da Música SP · São Paulo", date: "ABR 19" },
+  { kind: "show", name: "Rock Gratuito no Barão ...", city: "Campinas", genres: ["Rock"], price: "Grátis", priceNum: 0, initial: "31", color: "hsl(270, 60%, 55%)", top: "48%", left: "52%", venue: "Barão do Rock · Campinas", date: "MAR 31" },
+  { kind: "show", name: "Jazz Happy Hour — Trio ...", city: "São Paulo", genres: ["Jazz"], price: "Grátis", priceNum: 0, initial: "2", color: "hsl(210, 80%, 55%)", top: "51%", left: "64%", venue: "Jazz & Cia · São Paulo", date: "ABR 2" },
 ];
-
-const createIcon = (color: string, label: string) =>
-  L.divIcon({
-    className: "",
-    html: `<div style="background:${color};width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;border:2px solid rgba(255,255,255,0.3);box-shadow:0 2px 8px rgba(0,0,0,0.4)">${label}</div>`,
-    iconSize: [32, 32],
-    iconAnchor: [16, 16],
-  });
 
 const Mapa = () => {
   const [tab, setTab] = useState<"all" | "bands" | "shows">("all");
@@ -73,7 +64,6 @@ const Mapa = () => {
           <div className="p-4 border-b border-border">
             <h2 className="font-heading text-lg font-bold mb-4">Explorar</h2>
 
-            {/* Tabs */}
             <div className="flex gap-1 bg-secondary rounded-lg p-1 mb-4">
               {([["all", "Tudo"], ["bands", "🎸 Bandas"], ["shows", "🎵 Shows"]] as const).map(([key, label]) => (
                 <button
@@ -88,7 +78,6 @@ const Mapa = () => {
               ))}
             </div>
 
-            {/* Genre */}
             <select
               value={genre}
               onChange={(e) => setGenre(e.target.value)}
@@ -99,7 +88,6 @@ const Mapa = () => {
               ))}
             </select>
 
-            {/* Price */}
             <div className="flex items-center gap-2 mb-3">
               <span className="text-xs text-muted-foreground whitespace-nowrap">Cachê até</span>
               <input
@@ -111,7 +99,6 @@ const Mapa = () => {
               />
             </div>
 
-            {/* Available only */}
             <label className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer">
               <input
                 type="checkbox"
@@ -157,9 +144,7 @@ const Mapa = () => {
                   {item.kind === "band" ? (
                     <>
                       <p className="text-xs text-muted-foreground">{item.city}</p>
-                      <div className="flex items-center gap-2 mt-0.5">
-                        <span className="text-xs text-muted-foreground">{item.genres.join(" · ")}</span>
-                      </div>
+                      <span className="text-xs text-muted-foreground">{item.genres.join(" · ")}</span>
                       <div className="flex items-center justify-between mt-1">
                         <div className="flex items-center gap-1">
                           <Star className="h-3 w-3 text-accent fill-accent" />
@@ -185,31 +170,38 @@ const Mapa = () => {
           </div>
         </aside>
 
-        {/* Map */}
-        <div className="flex-1 relative">
-          <MapContainer
-            center={[-22.5, -46.5]}
-            zoom={7}
-            className="h-full w-full"
-            zoomControl={false}
-          >
-            <TileLayer
-              attribution='&copy; <a href="https://carto.com/">CARTO</a>'
-              url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-            />
-            {filtered.map((item, i) => (
-              <Marker
-                key={i}
-                position={[item.lat, item.lng]}
-                icon={createIcon(item.color, item.initial)}
+        {/* Static Map */}
+        <div className="flex-1 relative overflow-hidden">
+          <img
+            src={mapImage}
+            alt="Mapa do Brasil"
+            className="h-full w-full object-cover"
+            width={1280}
+            height={960}
+          />
+
+          {/* Pins overlay */}
+          {filtered.map((item, i) => (
+            <div
+              key={i}
+              className="absolute group"
+              style={{ top: item.top, left: item.left, transform: "translate(-50%, -50%)" }}
+            >
+              <div
+                className="h-8 w-8 rounded-full flex items-center justify-center text-[10px] font-bold text-white border-2 border-white/30 shadow-lg cursor-pointer transition-transform hover:scale-125"
+                style={{ backgroundColor: item.color, boxShadow: `0 0 12px ${item.color}` }}
               >
-                <Popup>
-                  <div className="text-sm font-semibold">{item.name}</div>
-                  <div className="text-xs">{item.city} · {item.price}</div>
-                </Popup>
-              </Marker>
-            ))}
-          </MapContainer>
+                {item.initial}
+              </div>
+              {/* Tooltip */}
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block z-10">
+                <div className="bg-card border border-border rounded-lg px-3 py-2 shadow-xl whitespace-nowrap">
+                  <p className="text-xs font-semibold text-foreground">{item.name}</p>
+                  <p className="text-[10px] text-muted-foreground">{item.city} · {item.price}</p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
