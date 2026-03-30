@@ -1,67 +1,20 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
-import ShowEventCard from "@/components/ShowEventCard";
-import showRock from "@/assets/show-rock.jpg";
-import showFunk from "@/assets/show-funk.jpg";
-import showJazz from "@/assets/show-jazz.jpg";
-import showSamba from "@/assets/show-samba.jpg";
-import showProg from "@/assets/show-prog.jpg";
-import showForro from "@/assets/show-forro.jpg";
-import showMpb from "@/assets/show-mpb.jpg";
-import showJazz2 from "@/assets/show-jazz2.jpg";
+import ShowCard from "@/components/ShowCard";
 
 const typeCategories = ["Todos", "Show", "Festival", "Casamento", "Corporativo", "Missa", "Espontâneo"];
 const genreCategories = ["Rock", "MPB", "Samba", "Jazz", "Blues", "Forró", "Funk", "Pop", "Eletrônico", "Clássico", "Reggae", "Pagode"];
 
 const shows = [
-  {
-    image: showRock, type: "Espontâneo", typeColor: "hsl(141, 73%, 42%)", price: "Grátis", priceIsFree: true,
-    title: "Rock Gratuito no Barão — Velvet Horizon", date: "ter., 31 de mar. às 20:00",
-    venue: "Barão do Rock · Campinas, SP", bandName: "Velvet Horizon", bandInitial: "VH",
-    bandColor: "hsl(270, 60%, 30%)", genres: ["Rock"],
-  },
-  {
-    image: showFunk, type: "Show", typeColor: "hsl(141, 73%, 42%)", price: "R$ 60", priceIsFree: false,
-    title: "Groove Night — Funk Família", date: "qua., 1 de abr. às 23:00",
-    venue: "Club Groove · Campinas, SP", bandName: "Funk Família", bandInitial: "FF",
-    bandColor: "hsl(33, 100%, 30%)", genres: ["Funk", "Pop"],
-  },
-  {
-    image: showJazz, type: "Show", typeColor: "hsl(141, 73%, 42%)", price: "Grátis", priceIsFree: true,
-    title: "Jazz Happy Hour — Trio Jazz SP", date: "qui., 2 de abr. às 18:30",
-    venue: "Jazz & Cia · São Paulo, SP", bandName: "Trio Jazz SP", bandInitial: "TJ",
-    bandColor: "hsl(210, 80%, 30%)", genres: ["Jazz"],
-  },
-  {
-    image: showProg, type: "Show", typeColor: "hsl(141, 73%, 42%)", price: "R$ 35", priceIsFree: false,
-    title: "Velvet Horizon — Noite de Rock Progressivo", date: "sex., 3 de abr. às 21:00",
-    venue: "Barão do Rock · Campinas, SP", bandName: "Velvet Horizon", bandInitial: "VH",
-    bandColor: "hsl(270, 60%, 30%)", genres: ["Rock", "Blues"],
-  },
-  {
-    image: showSamba, type: "Show", typeColor: "hsl(141, 73%, 42%)", price: "Grátis", priceIsFree: true,
-    title: "Samba na Praça — Sambão da Rua", date: "dom., 5 de abr. às 18:00",
-    venue: "Terraço Atibaia · Atibaia, SP", bandName: "Sambão da Rua", bandInitial: "SR",
-    bandColor: "hsl(45, 100%, 30%)", genres: ["Samba", "Pagode"],
-  },
-  {
-    image: showJazz2, type: "Show", typeColor: "hsl(141, 73%, 42%)", price: "R$ 50", priceIsFree: false,
-    title: "Jazz Night — Trio Jazz SP", date: "qua., 8 de abr. às 20:00",
-    venue: "Jazz & Cia · São Paulo, SP", bandName: "Trio Jazz SP", bandInitial: "TJ",
-    bandColor: "hsl(210, 80%, 30%)", genres: ["Jazz", "Blues"],
-  },
-  {
-    image: showForro, type: "Festival", typeColor: "hsl(33, 100%, 50%)", price: "R$ 45", priceIsFree: false,
-    title: "Festival Nordestina — Forró na Serra", date: "dom., 12 de abr. às 16:00",
-    venue: "Terraço Atibaia · Atibaia, SP", bandName: "Nordestina Beat", bandInitial: "NB",
-    bandColor: "hsl(0, 70%, 30%)", genres: ["Forró", "MPB"],
-  },
-  {
-    image: showMpb, type: "Show", typeColor: "hsl(141, 73%, 42%)", price: "R$ 80", priceIsFree: false,
-    title: "MPB Raiz — Noite de Caetano e Chico", date: "dom., 19 de abr. às 20:30",
-    venue: "Casa da Música SP · São Paulo, SP", bandName: "MPB Roots", bandInitial: "MR",
-    bandColor: "hsl(0, 50%, 30%)", genres: ["MPB", "Clássico"],
-  },
+  { date: "31 de mar.", city: "Campinas", title: "Rock Gratuito no Barão — Velvet Horizon", band: "Velvet Horizon", genre: "Rock", genreColor: "hsl(270, 60%, 55%)", price: "Grátis", priceIsFree: true, type: "Espontâneo", genres: ["Rock"] },
+  { date: "1 de abr.", city: "Campinas", title: "Groove Night — Funk Família", band: "Funk Família", genre: "Funk", genreColor: "hsl(33, 100%, 50%)", price: "R$ 60", priceIsFree: false, type: "Show", genres: ["Funk", "Pop"] },
+  { date: "2 de abr.", city: "São Paulo", title: "Jazz Happy Hour — Trio Jazz SP", band: "Trio Jazz SP", genre: "Jazz", genreColor: "hsl(210, 80%, 55%)", price: "Grátis", priceIsFree: true, type: "Show", genres: ["Jazz"] },
+  { date: "3 de abr.", city: "Campinas", title: "Velvet Horizon — Noite de Rock Progressivo", band: "Velvet Horizon", genre: "Rock", genreColor: "hsl(270, 60%, 55%)", price: "R$ 35", priceIsFree: false, type: "Show", genres: ["Rock", "Blues"] },
+  { date: "5 de abr.", city: "Atibaia", title: "Samba na Praça — Sambão da Rua", band: "Sambão da Rua", genre: "Samba", genreColor: "hsl(45, 100%, 50%)", price: "Grátis", priceIsFree: true, type: "Show", genres: ["Samba", "Pagode"] },
+  { date: "8 de abr.", city: "São Paulo", title: "Jazz Night — Trio Jazz SP", band: "Trio Jazz SP", genre: "Jazz", genreColor: "hsl(210, 80%, 55%)", price: "R$ 50", priceIsFree: false, type: "Show", genres: ["Jazz", "Blues"] },
+  { date: "12 de abr.", city: "Atibaia", title: "Festival Nordestina — Forró na Serra", band: "Nordestina Beat", genre: "Forró", genreColor: "hsl(0, 70%, 55%)", price: "R$ 45", priceIsFree: false, type: "Festival", genres: ["Forró", "MPB"] },
+  { date: "19 de abr.", city: "São Paulo", title: "MPB Raiz — Noite de Caetano e Chico", band: "MPB Roots", genre: "MPB", genreColor: "hsl(0, 50%, 55%)", price: "R$ 80", priceIsFree: false, type: "Show", genres: ["MPB", "Clássico"] },
 ];
 
 const Shows = () => {
@@ -84,20 +37,22 @@ const Shows = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      <div className="pt-20 px-6 md:px-12 lg:px-24 py-12">
-        <h1 className="font-heading text-3xl font-bold mb-1">Shows e Eventos</h1>
-        <p className="text-muted-foreground text-sm mb-8">Música ao vivo perto de você</p>
+      <div className="pt-24 px-6 md:px-12 lg:px-24 pb-16">
+        <div className="mb-10">
+          <h1 className="font-heading text-3xl font-bold mb-1">Shows e Eventos</h1>
+          <p className="text-muted-foreground text-sm">Música ao vivo perto de você</p>
+        </div>
 
         {/* Filters */}
-        <div className="flex flex-wrap gap-3 mb-4">
+        <div className="flex flex-wrap gap-3 mb-5">
           <input
             type="text"
             placeholder="Filtrar por cidade..."
-            className="rounded-lg border border-border bg-card px-4 py-2 text-sm outline-none placeholder:text-muted-foreground focus:border-primary/50 w-48"
+            className="rounded-full border border-border bg-secondary px-4 py-2 text-sm outline-none placeholder:text-muted-foreground focus:border-primary/50 w-48"
           />
           <input
             type="date"
-            className="rounded-lg border border-border bg-card px-4 py-2 text-sm outline-none text-muted-foreground focus:border-primary/50"
+            className="rounded-full border border-border bg-secondary px-4 py-2 text-sm outline-none text-muted-foreground focus:border-primary/50"
           />
         </div>
 
@@ -136,10 +91,19 @@ const Shows = () => {
         </div>
 
         {/* Cards grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filtered.map((show, i) => (
             <div key={i} className="animate-slide-in" style={{ animationDelay: `${i * 80}ms` }}>
-              <ShowEventCard {...show} />
+              <ShowCard
+                date={show.date}
+                city={show.city}
+                title={show.title}
+                band={show.band}
+                genre={show.genre}
+                genreColor={show.genreColor}
+                price={show.price}
+                priceIsFree={show.priceIsFree}
+              />
             </div>
           ))}
         </div>
