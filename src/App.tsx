@@ -8,6 +8,7 @@ import Shows from "./pages/Shows.tsx";
 import Mapa from "./pages/Mapa.tsx";
 import BandProfile from "./pages/BandProfile.tsx";
 import Espacos from "./pages/Espacos.tsx";
+import PublicarEvento from "./pages/PublicarEvento.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/mapa" element={<Mapa />} />
           <Route path="/bandas/:id" element={<BandProfile />} />
           <Route path="/espacos" element={<Espacos />} />
+          <Route path="/publicar" element={<PublicarEvento />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
