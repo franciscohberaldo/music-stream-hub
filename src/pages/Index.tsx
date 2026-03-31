@@ -108,7 +108,7 @@ const Index = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {shows.map((show, i) => (
             <div key={i} className="animate-slide-in" style={{ animationDelay: `${i * 80}ms` }}>
-              <ShowCard {...show} />
+              <ShowCard {...show} slug={show.slug} />
             </div>
           ))}
         </div>
