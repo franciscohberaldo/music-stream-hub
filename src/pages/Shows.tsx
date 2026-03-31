@@ -102,6 +102,7 @@ const Shows = () => {
                 genreColor={show.genreColor}
                 price={show.price}
                 priceIsFree={show.priceIsFree}
+                slug={show.slug}
               />
             </div>
           ))}
