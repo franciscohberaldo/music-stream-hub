@@ -6,12 +6,12 @@ import { Search, Music } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const shows = [
-  { date: "31 de mar.", city: "Campinas", title: "Rock Gratuito no Barão — Velvet Horizon", band: "Velvet Horizon", genre: "Rock", genreColor: "hsl(270, 60%, 55%)", price: "Grátis", priceIsFree: true, month: "MAR.", day: "31", genres: ["Rock"] },
-  { date: "1 de abr.", city: "Campinas", title: "Groove Night — Funk Família", band: "Funk Família", genre: "Funk", genreColor: "hsl(33, 100%, 50%)", price: "R$ 60", priceIsFree: false, month: "ABR.", day: "1", genres: ["Funk", "Pop"] },
-  { date: "2 de abr.", city: "São Paulo", title: "Jazz Happy Hour — Trio Jazz SP", band: "Trio Jazz SP", genre: "Jazz", genreColor: "hsl(210, 80%, 55%)", price: "Grátis", priceIsFree: true, month: "ABR.", day: "2", genres: ["Jazz"] },
-  { date: "3 de abr.", city: "Campinas", title: "Velvet Horizon — Noite de Rock Progressivo", band: "Velvet Horizon", genre: "Rock", genreColor: "hsl(270, 60%, 55%)", price: "R$ 35", priceIsFree: false, month: "ABR.", day: "3", genres: ["Rock", "Blues"] },
+  { date: "31 de mar.", city: "Campinas", title: "Rock Gratuito no Barão — Velvet Horizon", band: "Velvet Horizon", genre: "Rock", genreColor: "hsl(270, 60%, 55%)", price: "Grátis", priceIsFree: true, month: "MAR.", day: "31", genres: ["Rock"], slug: "rock-gratuito-velvet-horizon" },
+  { date: "1 de abr.", city: "Campinas", title: "Groove Night — Funk Família", band: "Funk Família", genre: "Funk", genreColor: "hsl(33, 100%, 50%)", price: "R$ 60", priceIsFree: false, month: "ABR.", day: "1", genres: ["Funk", "Pop"], slug: "groove-night-funk-familia" },
+  { date: "2 de abr.", city: "São Paulo", title: "Jazz Happy Hour — Trio Jazz SP", band: "Trio Jazz SP", genre: "Jazz", genreColor: "hsl(210, 80%, 55%)", price: "Grátis", priceIsFree: true, month: "ABR.", day: "2", genres: ["Jazz"], slug: "jazz-night-trio-jazz-sp" },
+  { date: "3 de abr.", city: "Campinas", title: "Velvet Horizon — Noite de Rock Progressivo", band: "Velvet Horizon", genre: "Rock", genreColor: "hsl(270, 60%, 55%)", price: "R$ 35", priceIsFree: false, month: "ABR.", day: "3", genres: ["Rock", "Blues"], slug: "rock-gratuito-velvet-horizon" },
   { date: "5 de abr.", city: "Atibaia", title: "Samba na Praça — Sambão da Rua", band: "Sambão da Rua", genre: "Samba", genreColor: "hsl(45, 100%, 50%)", price: "Grátis", priceIsFree: true, month: "ABR.", day: "5", genres: ["Samba", "Pagode"] },
-  { date: "8 de abr.", city: "São Paulo", title: "Jazz Night — Trio Jazz SP", band: "Trio Jazz SP", genre: "Jazz", genreColor: "hsl(210, 80%, 55%)", price: "R$ 50", priceIsFree: false, month: "ABR.", day: "8", genres: ["Jazz", "Blues"] },
+  { date: "8 de abr.", city: "São Paulo", title: "Jazz Night — Trio Jazz SP", band: "Trio Jazz SP", genre: "Jazz", genreColor: "hsl(210, 80%, 55%)", price: "R$ 50", priceIsFree: false, month: "ABR.", day: "8", genres: ["Jazz", "Blues"], slug: "jazz-night-trio-jazz-sp" },
   { date: "12 de abr.", city: "Atibaia", title: "Festival Nordestina — Forró na Serra", band: "Nordestina Beat", genre: "Forró", genreColor: "hsl(0, 70%, 55%)", price: "R$ 45", priceIsFree: false, month: "ABR.", day: "12", genres: ["Forró", "MPB"] },
 ];
 
@@ -108,7 +108,7 @@ const Index = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {shows.map((show, i) => (
             <div key={i} className="animate-slide-in" style={{ animationDelay: `${i * 80}ms` }}>
-              <ShowCard {...show} />
+              <ShowCard {...show} slug={show.slug} />
             </div>
           ))}
         </div>
