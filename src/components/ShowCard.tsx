@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 interface ShowCardProps {
   date: string;
   city: string;
@@ -7,12 +9,13 @@ interface ShowCardProps {
   genreColor: string;
   price: string;
   priceIsFree?: boolean;
+  slug?: string;
 }
 
-const ShowCard = ({ date, city, title, band, genre, genreColor, price, priceIsFree }: ShowCardProps) => {
-  return (
+const ShowCard = ({ date, city, title, band, genre, genreColor, price, priceIsFree, slug }: ShowCardProps) => {
+  const cardContent = (
     <div className="group rounded-xl bg-card border border-border p-4 hover:border-primary/30 transition-all hover:shadow-lg hover:shadow-primary/5 cursor-pointer">
-      <div className={`h-1 w-full rounded-full mb-4`} style={{ backgroundColor: genreColor }} />
+      <div className="h-1 w-full rounded-full mb-4" style={{ backgroundColor: genreColor }} />
       <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
         <span>🎵 {date} · {city}</span>
         <span className={priceIsFree ? "text-primary font-bold" : "font-bold text-accent"}>
@@ -35,6 +38,12 @@ const ShowCard = ({ date, city, title, band, genre, genreColor, price, priceIsFr
       </div>
     </div>
   );
+
+  if (slug) {
+    return <Link to={`/shows/${slug}`}>{cardContent}</Link>;
+  }
+
+  return cardContent;
 };
 
 export default ShowCard;
