@@ -8,6 +8,7 @@ import Index from "./pages/Index.tsx";
 import Shows from "./pages/Shows.tsx";
 import Mapa from "./pages/Mapa.tsx";
 import BandProfile from "./pages/BandProfile.tsx";
+import Bandas from "./pages/Bandas.tsx";
 import Espacos from "./pages/Espacos.tsx";
 import PublicarEvento from "./pages/PublicarEvento.tsx";
 import ShowDetail from "./pages/ShowDetail.tsx";
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/shows" element={<Shows />} />
           <Route path="/mapa" element={<Mapa />} />
+          <Route path="/bandas" element={<Bandas />} />
           <Route path="/bandas/:id" element={<BandProfile />} />
           <Route path="/espacos" element={<Espacos />} />
           <Route path="/publicar" element={<PublicarEvento />} />
