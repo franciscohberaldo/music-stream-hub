@@ -6,12 +6,12 @@ const typeCategories = ["Todos", "Show", "Festival", "Casamento", "Corporativo",
 const genreCategories = ["Rock", "MPB", "Samba", "Jazz", "Blues", "Forró", "Funk", "Pop", "Eletrônico", "Clássico", "Reggae", "Pagode"];
 
 const shows = [
-  { date: "31 de mar.", city: "Campinas", title: "Rock Gratuito no Barão — Velvet Horizon", band: "Velvet Horizon", genre: "Rock", genreColor: "hsl(270, 60%, 55%)", price: "Grátis", priceIsFree: true, type: "Espontâneo", genres: ["Rock"] },
-  { date: "1 de abr.", city: "Campinas", title: "Groove Night — Funk Família", band: "Funk Família", genre: "Funk", genreColor: "hsl(33, 100%, 50%)", price: "R$ 60", priceIsFree: false, type: "Show", genres: ["Funk", "Pop"] },
-  { date: "2 de abr.", city: "São Paulo", title: "Jazz Happy Hour — Trio Jazz SP", band: "Trio Jazz SP", genre: "Jazz", genreColor: "hsl(210, 80%, 55%)", price: "Grátis", priceIsFree: true, type: "Show", genres: ["Jazz"] },
-  { date: "3 de abr.", city: "Campinas", title: "Velvet Horizon — Noite de Rock Progressivo", band: "Velvet Horizon", genre: "Rock", genreColor: "hsl(270, 60%, 55%)", price: "R$ 35", priceIsFree: false, type: "Show", genres: ["Rock", "Blues"] },
+  { date: "31 de mar.", city: "Campinas", title: "Rock Gratuito no Barão — Velvet Horizon", band: "Velvet Horizon", genre: "Rock", genreColor: "hsl(270, 60%, 55%)", price: "Grátis", priceIsFree: true, type: "Espontâneo", genres: ["Rock"], slug: "rock-gratuito-velvet-horizon" },
+  { date: "1 de abr.", city: "Campinas", title: "Groove Night — Funk Família", band: "Funk Família", genre: "Funk", genreColor: "hsl(33, 100%, 50%)", price: "R$ 60", priceIsFree: false, type: "Show", genres: ["Funk", "Pop"], slug: "groove-night-funk-familia" },
+  { date: "2 de abr.", city: "São Paulo", title: "Jazz Happy Hour — Trio Jazz SP", band: "Trio Jazz SP", genre: "Jazz", genreColor: "hsl(210, 80%, 55%)", price: "Grátis", priceIsFree: true, type: "Show", genres: ["Jazz"], slug: "jazz-night-trio-jazz-sp" },
+  { date: "3 de abr.", city: "Campinas", title: "Velvet Horizon — Noite de Rock Progressivo", band: "Velvet Horizon", genre: "Rock", genreColor: "hsl(270, 60%, 55%)", price: "R$ 35", priceIsFree: false, type: "Show", genres: ["Rock", "Blues"], slug: "rock-gratuito-velvet-horizon" },
   { date: "5 de abr.", city: "Atibaia", title: "Samba na Praça — Sambão da Rua", band: "Sambão da Rua", genre: "Samba", genreColor: "hsl(45, 100%, 50%)", price: "Grátis", priceIsFree: true, type: "Show", genres: ["Samba", "Pagode"] },
-  { date: "8 de abr.", city: "São Paulo", title: "Jazz Night — Trio Jazz SP", band: "Trio Jazz SP", genre: "Jazz", genreColor: "hsl(210, 80%, 55%)", price: "R$ 50", priceIsFree: false, type: "Show", genres: ["Jazz", "Blues"] },
+  { date: "8 de abr.", city: "São Paulo", title: "Jazz Night — Trio Jazz SP", band: "Trio Jazz SP", genre: "Jazz", genreColor: "hsl(210, 80%, 55%)", price: "R$ 50", priceIsFree: false, type: "Show", genres: ["Jazz", "Blues"], slug: "jazz-night-trio-jazz-sp" },
   { date: "12 de abr.", city: "Atibaia", title: "Festival Nordestina — Forró na Serra", band: "Nordestina Beat", genre: "Forró", genreColor: "hsl(0, 70%, 55%)", price: "R$ 45", priceIsFree: false, type: "Festival", genres: ["Forró", "MPB"] },
   { date: "19 de abr.", city: "São Paulo", title: "MPB Raiz — Noite de Caetano e Chico", band: "MPB Roots", genre: "MPB", genreColor: "hsl(0, 50%, 55%)", price: "R$ 80", priceIsFree: false, type: "Show", genres: ["MPB", "Clássico"] },
 ];
