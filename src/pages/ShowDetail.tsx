@@ -1,6 +1,15 @@
 import { useParams, Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import { Calendar, MapPin, Users, Star, Bell } from "lucide-react";
+import heroJazz from "@/assets/show-hero-jazz.jpg";
+import heroRock from "@/assets/show-hero-rock.jpg";
+import heroFunk from "@/assets/show-hero-funk.jpg";
+
+const heroImages: Record<string, string> = {
+  "jazz-night-trio-jazz-sp": heroJazz,
+  "rock-gratuito-velvet-horizon": heroRock,
+  "groove-night-funk-familia": heroFunk,
+};
 
 const showsData: Record<string, {
   title: string;
@@ -83,6 +92,7 @@ const showsData: Record<string, {
 const ShowDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const show = slug ? showsData[slug] : null;
+  const heroImage = slug ? heroImages[slug] : undefined;
 
   if (!show) {
     return (
@@ -100,109 +110,112 @@ const ShowDetail = () => {
       <Navbar />
 
       <div className="pt-20 px-6 md:px-12 lg:px-24 pb-16">
-        <div className="max-w-5xl mx-auto">
-          {/* Hero Banner */}
-          <div className="relative rounded-2xl overflow-hidden h-48 md:h-64 mb-8 bg-gradient-to-br from-primary/30 via-secondary to-primary/10">
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-            <div className="absolute bottom-6 left-6">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-primary bg-primary/20 px-2 py-1 rounded">SHOW</span>
-              <h1 className="font-heading text-2xl md:text-3xl font-bold text-white mt-2">{show.title}</h1>
-              <div className="h-1 w-20 bg-primary rounded-full mt-2" />
+        {/* Hero Banner — full width */}
+        <div className="relative rounded-2xl overflow-hidden h-64 md:h-80 lg:h-96 mb-10">
+          {heroImage ? (
+            <img src={heroImage} alt={show.title} className="absolute inset-0 w-full h-full object-cover" width={1920} height={640} />
+          ) : (
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-secondary to-primary/10" />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+          <div className="absolute bottom-8 left-8">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-primary bg-primary/20 px-2.5 py-1 rounded">SHOW</span>
+            <h1 className="font-heading text-3xl md:text-4xl font-bold text-white mt-3">{show.title}</h1>
+            <div className="h-1 w-24 bg-primary rounded-full mt-3" />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+          {/* Left Content */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Date & Location */}
+            <div className="space-y-3">
+              <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                <Calendar className="h-4 w-4 text-primary" />
+                <span>{show.date} às {show.time}</span>
+              </div>
+              <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                <MapPin className="h-4 w-4 text-primary" />
+                <span>{show.address}</span>
+              </div>
+            </div>
+
+            {/* Genre chips */}
+            <div className="flex gap-2">
+              {show.genres.map((g) => (
+                <span key={g} className="text-xs px-3 py-1 rounded-full border border-border text-muted-foreground">
+                  {g}
+                </span>
+              ))}
+            </div>
+
+            {/* Description */}
+            <p className="text-sm text-muted-foreground leading-relaxed">{show.description}</p>
+
+            {/* Artist Card */}
+            <div className="rounded-xl border border-border bg-card p-5">
+              <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">ARTISTA</span>
+              <div className="flex items-center justify-between mt-3">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-full bg-secondary flex items-center justify-center text-sm font-bold">
+                    {show.bandInitial}
+                  </div>
+                  <div>
+                    <h3 className="font-heading font-semibold text-sm">{show.band}</h3>
+                    <p className="text-xs text-muted-foreground">{show.bandGenres}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1">
+                  <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
+                  <span className="text-sm font-bold text-amber-400">{show.bandRating}</span>
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground mt-3 leading-relaxed">{show.bandBio}</p>
+              <Link to={`/bandas/${show.band.toLowerCase().replace(/\s+/g, "-")}`} className="text-primary text-xs font-medium mt-3 inline-block hover:underline">
+                Ver perfil completo →
+              </Link>
+            </div>
+
+            {/* Venue Card */}
+            <div className="rounded-xl border border-border bg-card p-5">
+              <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">ESPAÇO</span>
+              <h3 className="font-heading font-semibold text-sm mt-2">{show.venue}</h3>
+              <p className="text-xs text-muted-foreground mt-1">{show.venueAddress}</p>
+              <div className="flex items-center gap-2 mt-2 text-xs text-muted-foreground">
+                <Users className="h-3.5 w-3.5" />
+                <span>{show.venueCapacity} pessoas</span>
+              </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Left Content */}
-            <div className="lg:col-span-2 space-y-6">
-              {/* Date & Location */}
-              <div className="space-y-3">
-                <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                  <Calendar className="h-4 w-4 text-primary" />
-                  <span>{show.date} às {show.time}</span>
-                </div>
-                <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                  <MapPin className="h-4 w-4 text-primary" />
-                  <span>{show.address}</span>
-                </div>
-              </div>
-
-              {/* Genre chips */}
-              <div className="flex gap-2">
-                {show.genres.map((g) => (
-                  <span key={g} className="text-xs px-3 py-1 rounded-full border border-border text-muted-foreground">
-                    {g}
-                  </span>
-                ))}
-              </div>
-
-              {/* Description */}
-              <p className="text-sm text-muted-foreground leading-relaxed">{show.description}</p>
-
-              {/* Artist Card */}
-              <div className="rounded-xl border border-border bg-card p-5">
-                <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">ARTISTA</span>
-                <div className="flex items-center justify-between mt-3">
-                  <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-full bg-secondary flex items-center justify-center text-sm font-bold">
-                      {show.bandInitial}
-                    </div>
-                    <div>
-                      <h3 className="font-heading font-semibold text-sm">{show.band}</h3>
-                      <p className="text-xs text-muted-foreground">{show.bandGenres}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
-                    <span className="text-sm font-bold text-yellow-500">{show.bandRating}</span>
-                  </div>
-                </div>
-                <p className="text-xs text-muted-foreground mt-3 leading-relaxed">{show.bandBio}</p>
-                <Link to={`/bandas/${show.band.toLowerCase().replace(/\s+/g, "-")}`} className="text-primary text-xs font-medium mt-3 inline-block hover:underline">
-                  Ver perfil completo →
-                </Link>
-              </div>
-
-              {/* Venue Card */}
-              <div className="rounded-xl border border-border bg-card p-5">
-                <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">ESPAÇO</span>
-                <h3 className="font-heading font-semibold text-sm mt-2">{show.venue}</h3>
-                <p className="text-xs text-muted-foreground mt-1">{show.venueAddress}</p>
-                <div className="flex items-center gap-2 mt-2 text-xs text-muted-foreground">
-                  <Users className="h-3.5 w-3.5" />
-                  <span>{show.venueCapacity} pessoas</span>
-                </div>
-              </div>
+          {/* Right Sidebar */}
+          <div className="space-y-6">
+            {/* Price & CTA */}
+            <div className="rounded-xl border border-border bg-card p-6 text-center">
+              <p className="font-heading text-3xl font-bold">{show.price}</p>
+              <p className="text-xs text-muted-foreground mt-1">por pessoa</p>
+              {!show.priceIsFree && (
+                <button className="mt-4 w-full rounded-full bg-primary text-primary-foreground py-2.5 text-sm font-semibold hover:opacity-90 transition-opacity">
+                  Comprar ingresso · {show.price}
+                </button>
+              )}
+              <button className="mt-3 w-full rounded-full border border-border py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors flex items-center justify-center gap-2">
+                <Bell className="h-4 w-4" />
+                Quero ser avisado
+              </button>
             </div>
 
-            {/* Right Sidebar */}
-            <div className="space-y-6">
-              {/* Price & CTA */}
-              <div className="rounded-xl border border-border bg-card p-6 text-center">
-                <p className="font-heading text-3xl font-bold">{show.price}</p>
-                <p className="text-xs text-muted-foreground mt-1">por pessoa</p>
-                {!show.priceIsFree && (
-                  <button className="mt-4 w-full rounded-full bg-primary text-primary-foreground py-2.5 text-sm font-semibold hover:opacity-90 transition-opacity">
-                    Comprar ingresso · {show.price}
-                  </button>
-                )}
-                <button className="mt-3 w-full rounded-full border border-border py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors flex items-center justify-center gap-2">
-                  <Bell className="h-4 w-4" />
-                  Quero ser avisado
-                </button>
-              </div>
-
-              {/* QR Code placeholder */}
-              <div className="rounded-xl border border-border bg-card p-6 text-center">
-                <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">CHECK-IN QR CODE</span>
-                <div className="mt-4 mx-auto w-32 h-32 bg-white rounded-lg flex items-center justify-center">
-                  <div className="grid grid-cols-5 gap-0.5 w-24 h-24">
-                    {Array.from({ length: 25 }).map((_, i) => (
-                      <div key={i} className={`w-full h-full ${Math.random() > 0.4 ? "bg-black" : "bg-white"}`} />
-                    ))}
-                  </div>
+            {/* QR Code placeholder */}
+            <div className="rounded-xl border border-border bg-card p-6 text-center">
+              <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">CHECK-IN QR CODE</span>
+              <div className="mt-4 mx-auto w-32 h-32 bg-white rounded-lg flex items-center justify-center">
+                <div className="grid grid-cols-5 gap-0.5 w-24 h-24">
+                  {Array.from({ length: 25 }).map((_, i) => (
+                    <div key={i} className={`w-full h-full ${[0,1,2,3,4,5,9,10,14,15,19,20,21,22,23,24].includes(i) ? "bg-black" : "bg-white"}`} />
+                  ))}
                 </div>
-                <p className="text-[10px] text-muted-foreground mt-3">Escaneie para fazer check-in no evento</p>
               </div>
+              <p className="text-[10px] text-muted-foreground mt-3">Escaneie para fazer check-in no evento</p>
             </div>
           </div>
         </div>
