@@ -10,6 +10,7 @@ import Mapa from "./pages/Mapa.tsx";
 import BandProfile from "./pages/BandProfile.tsx";
 import Espacos from "./pages/Espacos.tsx";
 import PublicarEvento from "./pages/PublicarEvento.tsx";
+import ShowDetail from "./pages/ShowDetail.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
