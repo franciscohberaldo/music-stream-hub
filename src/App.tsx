@@ -8,6 +8,7 @@ import Index from "./pages/Index.tsx";
 import Shows from "./pages/Shows.tsx";
 import Mapa from "./pages/Mapa.tsx";
 import BandProfile from "./pages/BandProfile.tsx";
+import Bandas from "./pages/Bandas.tsx";
 import Espacos from "./pages/Espacos.tsx";
 import PublicarEvento from "./pages/PublicarEvento.tsx";
 import ShowDetail from "./pages/ShowDetail.tsx";
